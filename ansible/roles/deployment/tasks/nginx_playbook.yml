@@ -1,0 +1,88 @@
+
+- name: Install nginx
+  apt:
+   name: nginx
+   state: latest
+  become: "yes"
+
+- name: start nginx
+  service:
+      name: nginx
+      state: started
+  become: "yes"
+  
+- name: NGINX | Remove Default Configuration
+  file: path=/etc/nginx/sites-enabled/default state=absent
+  become: "yes"
+
+- name: copy the nginx config file
+  template:
+    src: portfolio
+    dest: /etc/nginx/sites-available/
+  become: "yes"
+
+- name: create symlink
+  file:
+    src: /etc/nginx/sites-available/portfolio
+    dest: /etc/nginx/sites-enabled/portfolio
+    state: link
+  become: "yes"
+  notify:
+    - restart nginx
+
+
+- name: Install supervisor
+  apt:
+   name: supervisor
+   state: latest
+  become: "yes"
+
+- name: start supervisor
+  service:
+      name: supervisor
+      state: started
+  become: "yes"
+  
+# - name: NGINX | Remove Default Configuration
+#   file: path=/etc/nginx/sites-enabled/default state=absent
+#   become: "yes"
+
+- name: copy the supervisor config celery 1
+  template:
+    src: calvineComments1.conf
+    dest: /etc/supervisor/conf.d/
+  become: "yes"
+
+- name: copy the supervisor config celery 2
+  template:
+    src: calvineComments2.conf
+    dest: /etc/supervisor/conf.d/
+  become: "yes"
+
+- name: copy the supervisor config flower
+  template:
+    src: calvine_flower.conf
+    dest: /etc/supervisor/conf.d/
+  become: "yes"
+
+# - name: copy the supervisord.conf config
+#   template:
+#     src: supervisord.conf
+#     dest: /etc/supervisor/
+#   become: "yes"
+
+- name: create celery log directory
+  become: yes
+  file:
+    path: /var/log/celery
+    state: directory
+    owner: "{{ deployer_user }}"
+    recurse: yes
+
+  # notify:
+  #   - restart supervisor
+
+
+
+
+

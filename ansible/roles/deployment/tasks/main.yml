@@ -1,0 +1,10 @@
+- import_tasks: server.yml
+- import_tasks: git.yml
+- import_tasks: postgres.yml
+- import_tasks: dependencies.yml
+- import_tasks: migrations.yml
+- import_tasks: nginx_playbook.yml
+- import_tasks: gunicorn_playbook.yml
+# - import_tasks: supervisor_playbook.yml
+- import_tasks: encrypt.yml
+

@@ -1,0 +1,19 @@
+- name: Set up git configuration
+  apt:
+    name: git
+    state: latest
+  become: yes
+
+- name: Clone/pull the latest code
+  become: yes
+  become_user: "{{ deployer_user }}"
+  git:
+    repo: "https://{{ githubuser | urlencode }}:{{ githubpassword | urlencode }}@github.com/NYARAS/portfolio.git"
+    dest: "{{ app_dir }}"
+
+- name: Recursively change ownership of a directory
+  file:
+    path: /home/ubuntu/calvine/portfolio
+    state: directory
+    recurse: yes
+    owner: calvine

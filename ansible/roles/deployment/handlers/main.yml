@@ -1,0 +1,47 @@
+- name: restart postgres
+  service:
+    name: postgresql
+    state: restarted
+  become: yes
+
+- name: restart nginx
+  service:
+    name: nginx
+    state: restarted
+    enabled: yes
+  become: yes
+
+- name: restart supervisor
+  service:
+    name: supervisor
+    state: restarted
+    enabled: yes
+  become: yes
+
+- name: reread supervisor
+  service:
+    name: supervisor
+    state: reread
+    enabled: yes
+  become: yes
+
+- name: update supervisor
+  service:
+    name: supervisor
+    state: update
+    enabled: yes
+  become: yes
+
+- name: restart supervisor
+  service:
+    name: supervisor
+    state: restarted
+    enabled: yes
+  become: yes
+
+- name: restart app
+  service:
+    name: calvineComments
+    state: restarted
+    enabled: yes
+  become: yes

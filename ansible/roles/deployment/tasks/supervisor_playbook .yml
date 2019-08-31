@@ -1,0 +1,38 @@
+
+- name: Install supervisor
+  apt:
+   name: supervisor
+   state: latest
+  become: "yes"
+
+- name: start supervisor
+  service:
+      name: supervisor
+      state: started
+  become: "yes"
+  
+# - name: NGINX | Remove Default Configuration
+#   file: path=/etc/nginx/sites-enabled/default state=absent
+#   become: "yes"
+
+- name: copy the supervisor config celery 1
+  template:
+    src: calvineComments1.conf
+    dest: /etc/supervisor/conf.d/
+  become: "yes"
+
+- name: copy the supervisor config celery 2
+  template:
+    src: calvineComments2.conf
+    dest: /etc/supervisor/conf.d/
+  become: "yes"
+
+- name: copy the supervisor config flower
+  template:
+    src: calvine_flower.conf
+    dest: /etc/supervisor/conf.d/
+  become: "yes"
+  notify:
+    - restart supervisord
+
+

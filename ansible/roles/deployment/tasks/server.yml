@@ -1,0 +1,53 @@
+- name: Add group "calvine" to remote server
+  remote_user: ubuntu
+  become: yes
+  become_method: sudo
+  group:
+    name: "{{ deployer_group }}"
+    state: present
+
+- name: Add user "calvine" to the remote server
+  remote_user: ubuntu
+  become: yes
+  become_method: sudo
+  user:
+    name: "{{ deployer_user }}"
+    comment: "Deploy user"
+    group: "{{ deployer_group }}"
+    groups: adm,sudo
+    append: yes
+    create_home: no
+
+# - name: Upgrade all packages to the latest version
+#   become: yes
+#   apt:
+#     name: "*"
+#     state: latest
+#   force_apt_get: True
+
+- name: Install Required packages
+  apt:
+    name: "{{ packages }}"
+    update_cache: true
+    state: present
+  vars:
+    packages:
+      - python3-pip
+      - build-essential
+      - libssl-dev
+      - libffi-dev
+      - python3-dev
+      - python3-venv
+      - redis-server
+      - rabbitmq-server
+  become: yes
+
+- name: create web directory
+  become: yes
+  file:
+    path: /home/ubuntu/calvine/portfolio
+    state: directory
+    owner: "{{ deployer_user }}"
+    recurse: yes
+
+

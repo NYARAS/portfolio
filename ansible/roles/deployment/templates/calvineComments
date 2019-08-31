@@ -1,0 +1,16 @@
+server {
+    listen [::]:80 default_server;
+    listen 80 default_server;
+    server_name 18.223.29.63;
+    # server_name 18.219.38.123;
+    location = /favicon.ico { access_log off; log_not_found off; }
+
+    location /static/ {
+            root /home/ubuntu/calvine/portfolio;
+    }
+
+    location / {
+            include proxy_params;
+            proxy_pass http://unix:/home/ubuntu/calvine/portfolio/portfolio.sock;
+    }
+}

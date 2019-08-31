@@ -1,0 +1,15 @@
+- name: start gunicorn
+  shell: |
+    . /home/ubuntu/calvine/envs/portfolio/bin/activate
+    cd /home/ubuntu/calvine/portfolio
+    gunicorn --daemon --workers 3 --bind unix:/home/ubuntu/calvine/portfolio/portfolio.sock portfolio.wsgi
+  become: "yes"
+- name: Recursively change ownership of a directory
+  file:
+    path: /home/ubuntu/calvine/portfolio
+    state: directory
+    recurse: yes
+    owner: calvine
+  become: "yes"
+   
+

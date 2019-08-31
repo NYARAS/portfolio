@@ -1,0 +1,39 @@
+# App Name
+app_name: portfolio
+
+# Deployer User and Groups
+deployer_user: calvine
+deployer_group: calvine
+deployer_mail: calvineotieno010@gmail.com
+
+# Django admin
+django_user: calvine
+django_mail: calvineotieno010@gmail.com
+
+
+# Github Code's Repo URL
+githubuser: NYARAS
+githubpassword: Calvine2015
+
+# App Directory
+app_dir: /home/ubuntu/{{deployer_user}}/{{app_name}}
+
+# DB Configuration
+db_url: postgresql://{{deployer_user}}:{{db_password}}@localhost/{{app_name}}
+db_password: 12345
+db_name: portfolio
+db_user: calvine
+
+
+# Application Dependencies Setup
+venv_dir: '/home/ubuntu/{{ deployer_user }}/envs/{{ app_name }}'
+venv_python: '{{ venv_dir }}/bin/python3.6'
+
+# Deploy Dir in App Directory
+deploy_dir: '{{ app_dir }}/deploy'
+
+# WSGI Vars
+django_wsgi_module: portfolio.wsgi
+django_settings_module: portfolio.settings.dev
+django_secret_key: '05c(%n82j63a8n5@2#@par@7at+)#%vw49m$38b%5+ai9ut$46'
+database_url: '{{ db_url }}'
