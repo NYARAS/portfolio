@@ -12,18 +12,18 @@
     virtualenv: "{{ venv_dir }}"
   become: yes
 
-- name: create web directory
-  become: yes
-  file:
-    path: /home/ubuntu/calvine/calvineComments/static
-    state: directory
-    owner: "{{ deployer_user }}"
-    recurse: yes
+# - name: create web directory
+#   become: yes
+#   file:
+#     path: /home/ubuntu/calvine/portfolio/static
+#     state: directory
+#     owner: "{{ deployer_user }}"
+#     recurse: yes
 
-- name: Collect Static Files
-  django_manage:
-    app_path: "{{ app_dir }}"
-    command: collectstatic
-    virtualenv: "{{ venv_dir }}"
-  become: yes
+# - name: Collect Static Files
+#   django_manage:
+#     app_path: "{{ app_dir }}"
+#     command: collectstatic
+#     virtualenv: "{{ venv_dir }}"
+#   become: yes
 
